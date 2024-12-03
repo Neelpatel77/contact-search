@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import SearchForm from "./searchForm";
 import ContactTable from "./ContactTable";
 import data from "./data/contacts.json";
-import { Box, Typography, Paper, Button } from "@mui/material";
+import { Box, Typography, Paper, Button, IconButton, InputAdornment } from "@mui/material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { CalendarToday } from "@mui/icons-material";
 
 const App = () => {
   const [filters, setFilters] = useState({});
@@ -14,7 +15,6 @@ const App = () => {
 
   const itemsPerPage = 5;
 
-  // Handle Date Picker change
   const handleDateChange = (date) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -42,11 +42,10 @@ const App = () => {
       filtered = filtered.filter((contact) =>
         contact.phone.includes(filters.phone)
       );
-    if (filters.dateOfBirth) {
+    if (filters.dateOfBirth)
       filtered = filtered.filter((contact) =>
         contact.dateOfBirth.includes(filters.dateOfBirth)
       );
-    }
     if (filters.street)
       filtered = filtered.filter((contact) =>
         contact.address.toLowerCase().includes(filters.street.toLowerCase())
@@ -81,65 +80,21 @@ const App = () => {
         Contact Search
       </Typography>
       <SearchForm filters={filters} setFilters={setFilters} />
-      <Box display="flex" justifyContent="space-between" mt={2}>
-        <Box flex={1}>
-          <Typography variant="h6">First Name:</Typography>
-          <input
-            type="text"
-            value={filters.firstName || ""}
-            onChange={(e) =>
-              setFilters({ ...filters, firstName: e.target.value })
-            }
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          />
-          <Typography variant="h6">Last Name:</Typography>
-          <input
-            type="text"
-            value={filters.lastName || ""}
-            onChange={(e) =>
-              setFilters({ ...filters, lastName: e.target.value })
-            }
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          />
-          <Typography variant="h6">Email:</Typography>
-          <input
-            type="text"
-            value={filters.email || ""}
-            onChange={(e) =>
-              setFilters({ ...filters, email: e.target.value })
-            }
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          />
-        </Box>
-        <Box flex={1}>
-          <Typography variant="h6">Date of Birth:</Typography>
+      
+      {/* Date of Birth Input Field with Calendar Icon */}
+      <Box mt={2}>
+        <Typography variant="h6">Date of Birth:</Typography>
+        <Box display="flex" alignItems="center">
           <DatePicker
             selected={filters.dateOfBirth || null}
             onChange={handleDateChange}
             dateFormat="yyyy-MM-dd"
-            placeholderText="Select date"
-            style={{
-              width: "100%",
-              padding: "8px",
-              margin: "8px 0",
-            }}
+            placeholderText="Select date (yyyy-mm-dd)"
+            style={{ width: "80%", padding: "8px", marginRight: "8px" }}
           />
-          <Typography variant="h6">Street:</Typography>
-          <input
-            type="text"
-            value={filters.street || ""}
-            onChange={(e) =>
-              setFilters({ ...filters, street: e.target.value })
-            }
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          />
-          <Typography variant="h6">City:</Typography>
-          <input
-            type="text"
-            value={filters.city || ""}
-            onChange={(e) => setFilters({ ...filters, city: e.target.value })}
-            style={{ width: "100%", padding: "8px", margin: "8px 0" }}
-          />
+          <IconButton onClick={() => {}}>
+            <CalendarToday />
+          </IconButton>
         </Box>
       </Box>
 
@@ -151,6 +106,7 @@ const App = () => {
       >
         Search
       </Button>
+
       <ContactTable
         contacts={paginatedContacts}
         onSelect={handleSelect}
@@ -159,6 +115,7 @@ const App = () => {
         totalItems={contacts.length}
         onPageChange={handlePageChange}
       />
+
       {selectedContact && (
         <Paper elevation={3} style={{ padding: "16px", marginTop: "16px" }}>
           <Typography variant="h6">Selected Contact:</Typography>
