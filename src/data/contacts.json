@@ -12,7 +12,7 @@
     },
     {
       "firstName": "Eesha",
-      "lastName": "Sharma",
+      "lastName": "vermA",
       "dob": "1995-07-04",
       "address": "4821 Ridge Top Cir",
       "city": "Anchorage",
@@ -21,6 +21,17 @@
       "email": "eeshasharma@gmail.com",
       "phone": "2582528582"
     },
+    {
+        "firstName": "Eesha",
+        "lastName": "Sharma",
+        "dob": "1995-07-04",
+        "address": "4821 Ridge Top Cir",
+        "city": "Anchorage",
+        "state": "AK",
+        "zip": "99508",
+        "email": "eeshasharma@gmail.com",
+        "phone": "2582528582"
+      },
     {
       "firstName": "John",
       "lastName": "Doe",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchForm from "./searchForm";
 import ContactTable from "./ContactTable";
 import data from "./data/contacts.json";
-import { Box, Typography, Paper, Button, IconButton, InputAdornment } from "@mui/material";
+import { Box, Typography, Paper, Button, IconButton } from "@mui/material";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { CalendarToday } from "@mui/icons-material";
@@ -11,7 +11,8 @@ const App = () => {
   const [filters, setFilters] = useState({});
   const [contacts, setContacts] = useState(data);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedContact, setSelectedContact] = useState(null);
+  const [selectedContacts, setSelectedContacts] = useState([]);
+  const [highlightedContactId, setHighlightedContactId] = useState(null);
 
   const itemsPerPage = 5;
 
@@ -65,7 +66,21 @@ const App = () => {
     setContacts(filtered);
   };
 
-  const handleSelect = (contact) => setSelectedContact(contact);
+  const handleSelect = (contact) => {
+    // Toggle the selected contact in memory
+    setSelectedContacts((prevSelected) => {
+      const isAlreadySelected = prevSelected.some(
+        (selected) => selected.id === contact.id
+      );
+      if (isAlreadySelected) {
+        // If the contact is already selected, remove it
+        return prevSelected.filter((selected) => selected.id !== contact.id);
+      } else {
+        // If it's not selected, add it
+        return [...prevSelected, contact];
+      }
+    });
+  };
 
   const handlePageChange = (event, value) => setCurrentPage(value);
 
@@ -73,6 +88,12 @@ const App = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
+  const handleContactClick = (contactId) => {
+    setHighlightedContactId(
+      highlightedContactId === contactId ? null : contactId
+    );
+  };
 
   return (
     <Box p={3}>
@@ -114,27 +135,36 @@ const App = () => {
         itemsPerPage={itemsPerPage}
         totalItems={contacts.length}
         onPageChange={handlePageChange}
+        onContactClick={handleContactClick}
+        highlightedContactId={highlightedContactId}
       />
 
-      {selectedContact && (
+      {/* Display Selected Contact Details continuously */}
+      {selectedContacts.length > 0 ? (
         <Paper elevation={3} style={{ padding: "16px", marginTop: "16px" }}>
-          <Typography variant="h6">Selected Contact:</Typography>
-          <Typography>
-            <strong>Name:</strong> {selectedContact.firstName}{" "}
-            {selectedContact.lastName}
-          </Typography>
-          <Typography>
-            <strong>Email:</strong> {selectedContact.email}
-          </Typography>
-          <Typography>
-            <strong>Phone:</strong> {selectedContact.phone}
-          </Typography>
-          <Typography>
-            <strong>Address:</strong> {selectedContact.address},{" "}
-            {selectedContact.city}, {selectedContact.state} -{" "}
-            {selectedContact.zipCode}
-          </Typography>
+          <Typography variant="h6">Selected Contacts:</Typography>
+          {selectedContacts.map((contact) => (
+            <div key={contact.id}>
+              <Typography>
+                <strong>Name:</strong> {contact.firstName} {contact.lastName}
+              </Typography>
+              <Typography>
+                <strong>Email:</strong> {contact.email}
+              </Typography>
+              <Typography>
+                <strong>Phone:</strong> {contact.phone}
+              </Typography>
+              <Typography>
+                <strong>Address:</strong> {contact.address}, {contact.city}, {contact.state} - {contact.zipCode}
+              </Typography>
+              <hr />
+            </div>
+          ))}
         </Paper>
+      ) : (
+        <Typography variant="body1" style={{ marginTop: "16px" }}>
+          No contacts selected.
+        </Typography>
       )}
     </Box>
   );
