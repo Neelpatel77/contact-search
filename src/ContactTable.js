@@ -1,35 +1,55 @@
 import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  TableContainer,
+  Paper,
+  Pagination,
+} from "@mui/material";
 
-const ContactTable = ({ contacts, onSelect }) => {
+const ContactTable = ({ contacts, onSelect, totalItems, onPageChange, currentPage, itemsPerPage }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>DOB</th>
-          <th>Address</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Zip</th>
-          <th>Email</th>
-          <th>Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        {contacts.map((contact, index) => (
-          <tr key={index} onClick={() => onSelect(contact)}>
-            <td>{contact.firstName} {contact.lastName}</td>
-            <td>{contact.dob}</td>
-            <td>{contact.address}</td>
-            <td>{contact.city}</td>
-            <td>{contact.state}</td>
-            <td>{contact.zip}</td>
-            <td>{contact.email}</td>
-            <td>{contact.phone}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Date of Birth</TableCell>
+            <TableCell>Address</TableCell>
+            <TableCell>City</TableCell>
+            <TableCell>State</TableCell>
+            <TableCell>Zip Code</TableCell>
+            <TableCell>Email</TableCell>
+            <TableCell>Phone</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {contacts.map((contact, index) => (
+            <TableRow key={index} onClick={() => onSelect(contact)} hover>
+              <TableCell>
+                {contact.firstName} {contact.lastName}
+              </TableCell>
+              <TableCell>{contact.dateOfBirth}</TableCell>
+              <TableCell>{contact.address}</TableCell>
+              <TableCell>{contact.city}</TableCell>
+              <TableCell>{contact.state}</TableCell>
+              <TableCell>{contact.zipCode}</TableCell>
+              <TableCell>{contact.email}</TableCell>
+              <TableCell>{contact.phone}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <Pagination
+        count={Math.ceil(totalItems / itemsPerPage)}
+        page={currentPage}
+        onChange={onPageChange}
+        style={{ margin: "16px 0", display: "flex", justifyContent: "center" }}
+      />
+    </TableContainer>
   );
 };
 
