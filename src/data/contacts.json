@@ -1,0 +1,58 @@
+[
+    {
+      "firstName": "Rajeev",
+      "lastName": "Sharma",
+      "dob": "1986-02-12",
+      "address": "1001 Noble St Ste 1",
+      "city": "Fairbanks",
+      "state": "AK",
+      "zip": "99701",
+      "email": "rajeevsharma@gmail.com",
+      "phone": "2582528582"
+    },
+    {
+      "firstName": "Eesha",
+      "lastName": "Sharma",
+      "dob": "1995-07-04",
+      "address": "4821 Ridge Top Cir",
+      "city": "Anchorage",
+      "state": "AK",
+      "zip": "99508",
+      "email": "eeshasharma@gmail.com",
+      "phone": "2582528582"
+    },
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "dob": "1990-01-15",
+      "address": "123 Main St",
+      "city": "Los Angeles",
+      "state": "CA",
+      "zip": "90001",
+      "email": "john.doe@example.com",
+      "phone": "5551234567"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "dob": "1988-05-20",
+      "address": "456 Elm St",
+      "city": "Chicago",
+      "state": "IL",
+      "zip": "60601",
+      "email": "jane.smith@example.com",
+      "phone": "5559876543"
+    },
+    {
+      "firstName": "Alice",
+      "lastName": "Johnson",
+      "dob": "1992-11-30",
+      "address": "789 Oak St",
+      "city": "Houston",
+      "state": "TX",
+      "zip": "77001",
+      "email": "alice.johnson@example.com",
+      "phone": "5554567890"
+    }
+  ]
+  
