@@ -38,7 +38,7 @@ const SearchForm = ({ filters, setFilters }) => {
             onChange={handleInputChange}
             style={{ marginTop: "16px" }}
           />
-        <Box mb={2} pt={0.25}> {/* 0.25rem = 2px */}
+        <Box mb={2} pt={0.25}> 
   <TextField
     label="Date of Birth (YYYY-MM-DD)"
     variant="outlined"
