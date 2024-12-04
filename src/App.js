@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchForm from "./searchForm";
 import ContactTable from "./ContactTable";
 import data from "./data/contacts.json";
@@ -16,6 +16,11 @@ const App = () => {
 
   const itemsPerPage = 5;
 
+  useEffect(() => {
+    // When no search is applied and page loads, show all contacts initially
+    setContacts(data);
+  }, []);
+
   const handleDateChange = (date) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -25,61 +30,73 @@ const App = () => {
 
   const handleSearch = () => {
     let filtered = data;
-    if (filters.firstName)
+
+    if (filters.firstName) {
+      const firstNameFilter = filters.firstName.toLowerCase();
       filtered = filtered.filter((contact) =>
-        contact.firstName
-          .toLowerCase()
-          .includes(filters.firstName.toLowerCase())
+        contact.firstName.toLowerCase().includes(firstNameFilter)
       );
-    if (filters.lastName)
+    }
+
+    if (filters.lastName) {
+      const lastNameFilter = filters.lastName.toLowerCase();
       filtered = filtered.filter((contact) =>
-        contact.lastName.toLowerCase().includes(filters.lastName.toLowerCase())
+        contact.lastName.toLowerCase().includes(lastNameFilter)
       );
-    if (filters.email)
+    }
+
+    if (filters.email) {
+      const emailFilter = filters.email.toLowerCase();
       filtered = filtered.filter((contact) =>
-        contact.email.toLowerCase().includes(filters.email.toLowerCase())
+        contact.email.toLowerCase().includes(emailFilter)
       );
-    if (filters.phone)
+    }
+
+    if (filters.phone) {
       filtered = filtered.filter((contact) =>
         contact.phone.includes(filters.phone)
       );
-    if (filters.dateOfBirth)
+    }
+
+    if (filters.dateOfBirth) {
+      const dobFilter = filters.dateOfBirth;
       filtered = filtered.filter((contact) =>
-        contact.dateOfBirth.includes(filters.dateOfBirth)
+        contact.dob.includes(dobFilter)
       );
-    if (filters.street)
+    }
+
+    if (filters.street) {
+      const streetFilter = filters.street.toLowerCase();
       filtered = filtered.filter((contact) =>
-        contact.address.toLowerCase().includes(filters.street.toLowerCase())
+        contact.address.toLowerCase().includes(streetFilter)
       );
-    if (filters.city)
+    }
+
+    if (filters.city) {
+      const cityFilter = filters.city.toLowerCase();
       filtered = filtered.filter((contact) =>
-        contact.city.toLowerCase().includes(filters.city.toLowerCase())
+        contact.city.toLowerCase().includes(cityFilter)
       );
-    if (filters.state)
+    }
+
+    if (filters.state) {
+      const stateFilter = filters.state.toLowerCase();
       filtered = filtered.filter((contact) =>
-        contact.state.toLowerCase().includes(filters.state.toLowerCase())
+        contact.state.toLowerCase().includes(stateFilter)
       );
-    if (filters.zipCode)
+    }
+
+    if (filters.zipCode) {
       filtered = filtered.filter((contact) =>
-        contact.zipCode.includes(filters.zipCode)
+        contact.zip.includes(filters.zipCode)
       );
+    }
+
     setContacts(filtered);
   };
 
   const handleSelect = (contact) => {
-    // Toggle the selected contact in memory
-    setSelectedContacts((prevSelected) => {
-      const isAlreadySelected = prevSelected.some(
-        (selected) => selected.id === contact.id
-      );
-      if (isAlreadySelected) {
-        // If the contact is already selected, remove it
-        return prevSelected.filter((selected) => selected.id !== contact.id);
-      } else {
-        // If it's not selected, add it
-        return [...prevSelected, contact];
-      }
-    });
+    setSelectedContacts([contact]); // Ensure only one contact is selected at a time
   };
 
   const handlePageChange = (event, value) => setCurrentPage(value);
@@ -102,7 +119,6 @@ const App = () => {
       </Typography>
       <SearchForm filters={filters} setFilters={setFilters} />
       
-      {/* Date of Birth Input Field with Calendar Icon */}
       <Box mt={2}>
         <Typography variant="h6">Date of Birth:</Typography>
         <Box display="flex" alignItems="center">
@@ -135,11 +151,9 @@ const App = () => {
         itemsPerPage={itemsPerPage}
         totalItems={contacts.length}
         onPageChange={handlePageChange}
-        onContactClick={handleContactClick}
-        highlightedContactId={highlightedContactId}
       />
 
-      {/* Display Selected Contact Details continuously */}
+      {/* Display Selected Contact Details */}
       {selectedContacts.length > 0 ? (
         <Paper elevation={3} style={{ padding: "16px", marginTop: "16px" }}>
           <Typography variant="h6">Selected Contacts:</Typography>

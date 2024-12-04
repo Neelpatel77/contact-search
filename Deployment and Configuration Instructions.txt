@@ -1,0 +1,230 @@
+﻿Deployment and Configuration Instructions
+
+
+Prerequisites:
+Node.js (v14 or higher) - Make sure Node.js is installed on your machine.
+npm (Node Package Manager) - It comes with Node.js, so you should have it after installation.
+Text Editor/IDE - For example, Visual Studio Code.
+
+
+Steps for Deployment:
+
+
+1. Clone the Repository (if applicable):
+If you haven't already, clone the project repository to your local machine:
+
+
+    git clone <repository_url>
+    cd <repository_name>
+
+
+2. Install Dependencies:
+In your project folder, run the following command to install the required dependencies:
+
+
+    npm install
+
+
+3. Set Up Environment Variables (if required):
+If your project requires environment variables (e.g., API keys, secret tokens), create a .env file in the root of your project and add necessary variables like:
+
+
+    REACT_APP_API_URL=<your_api_url>
+    REACT_APP_API_KEY=<your_api_key>
+
+
+4. Configure the Search and Filter Logic:
+The search and filter functionality in your application uses the filters state in the App.js component. Ensure that the filter fields in the SearchForm component match your desired criteria (firstName, lastName, etc.).
+
+
+Ensure the contacts.json file contains the required contact data and is properly imported into the app:
+
+
+    import data from "./data/contacts.json";
+
+
+5. Start the Development Server:
+Run the following command to start the development server:
+
+
+    npm start
+
+
+This will start the app at http://localhost:3000 by default. Open the URL in a browser to view the app.
+
+
+6. Build the Production Version (for deployment):
+When you're ready to deploy the application, run the following command to create an optimized build:
+
+
+    npm run build
+
+
+This will create a build folder containing the production-ready version of your app.
+
+
+7. Deploy the Application:
+You can deploy the build folder to any static hosting service such as:
+
+
+    - Netlify: Drag and drop the build folder into the Netlify dashboard or use the CLI to deploy.
+    - Vercel: Deploy directly from your GitHub repository.
+    - GitHub Pages: Configure the repository to serve the build folder.
+    - AWS S3 + CloudFront: Upload the build folder to an S3 bucket and configure CloudFront for global delivery.
+
+
+Configuration and Usage:
+
+
+1. Search Functionality:
+   - The user can filter contacts by entering search terms into the input fields in the SearchForm component.
+   - It supports case-insensitive matching for firstName, lastName, email, phone, address, city, state, and zipCode.
+   - The handleSearch function filters the contact list based on these criteria.
+
+
+2. Pagination:
+   - Pagination is implemented using the Pagination component from Material-UI.
+   - The app displays 5 contacts per page, and the user can navigate through pages using the pagination control.
+
+
+3. Selecting Contacts:
+   - Clicking on a row in the ContactTable selects the contact and displays the contact's details in a separate section below the table.
+   - The handleSelect function manages the selection of contacts, allowing users to toggle between selecting and deselecting a contact.
+
+
+4. Date of Birth Picker:
+   - The Date of Birth is selected using a calendar input provided by react-datepicker.
+   - The user can select a date to filter contacts based on their birth date.
+
+
+5. State Management:
+   - State management is handled using the useState hook for filters, contacts, currentPage, selectedContacts, and highlightedContactId.
+   - The application relies on this state to render filtered contacts, selected contacts, and the current page of the pagination.
+
+
+6. Updating State Dynamically:
+   - The onChange events in input fields and the onSelect function for contact selection update the state dynamically. When a contact is selected or a filter is applied, the displayed contact data will update accordingly.
+
+
+Troubleshooting:
+
+
+1. Issue with Contact Data Not Showing:
+   - Ensure the contacts.json file is correctly structured and imported. If the contact data is missing, the search and selection functionality may fail to work.
+   - Ensure no syntax errors in the App.js file or ContactTable.js that could prevent the app from rendering.
+
+
+2. Deployment Issues:
+   - If you are facing deployment issues, ensure the hosting platform supports static site deployment (e.g., Netlify, Vercel).
+   - If using GitHub Pages, ensure the correct base URL is set in the package.json file under homepage.
+
+
+
+
+
+
+Test Cases:
+________________
+
+
+1. Test Search by First Name:
+Description: Test that the search functionality works for the "First Name" filter.
+* Test Data:
+   * Input: Eesha
+   * Expected Result: The app should display only the contacts with the first name "Eesha", regardless of case.
+* Sample Data:
+   * Eesha Sharma
+   * Eesha Kumar
+   * Rajeev Sharma
+* Expected Result: Only contacts with first name "Eesha" should be displayed, i.e., Eesha Sharma and Eesha Kumar.
+________________
+
+
+2. Test Search by Last Name:
+Description: Test that the search functionality works for the "Last Name" filter.
+* Test Data:
+   * Input: Sharma
+   * Expected Result: The app should display all contacts with last name "Sharma".
+* Sample Data:
+   * Eesha Sharma
+   * Rajeev Sharma
+   * John Doe
+* Expected Result: The app should display Eesha Sharma and Rajeev Sharma, but not John Doe.
+________________
+
+
+3. Test Search by Email:
+Description: Test that the search functionality works for the "Email" filter.
+* Test Data:
+   * Input: sharma@example.com
+   * Expected Result: The app should display the contact with that specific email.
+* Sample Data:
+   * Eesha Sharma - sharma@example.com
+   * Rajeev Sharma - rajeeve@example.com
+* Expected Result: Only the contact Eesha Sharma should be displayed.
+________________
+
+
+4. Test Pagination:
+Description: Test that the pagination displays contacts correctly across multiple pages.
+* Test Data:
+   * Contacts per page: 5
+   * Sample Data: 10 contacts
+   * Navigate to Page 2
+* Expected Result: The app should display the next 5 contacts on page 2 after clicking the pagination control.
+________________
+
+
+5. Test Select Contact and Show Details:
+Description: Test that clicking on a contact row shows the contact details.
+* Test Data:
+   * Click on Eesha Sharma
+   * Expected Result: The contact details of Eesha Sharma should be shown in the detail panel.
+* Sample Data:
+   * Eesha Sharma
+   * Rajeev Sharma
+* Expected Result: When Eesha Sharma is clicked, the selected contact's details (name, email, phone, etc.) should be displayed in the contact details section.
+________________
+
+
+6. Test Search by Multiple Filters (First Name + Last Name):
+Description: Test that multiple filters can be applied at once and return correct results.
+* Test Data:
+   * First Name: Eesha
+   * Last Name: Sharma
+   * Expected Result: The app should only display Eesha Sharma.
+* Sample Data:
+   * Eesha Sharma
+   * Rajeev Sharma
+   * John Doe
+* Expected Result: Only the contact Eesha Sharma should be displayed.
+________________
+
+
+7. Test No Data Found:
+Description: Test that if no contacts match the filter, the app shows no data.
+* Test Data:
+   * First Name: XYZ
+   * Expected Result: No contacts should be displayed.
+* Sample Data:
+   * Eesha Sharma
+   * Rajeev Sharma
+* Expected Result: No contacts should be displayed with the name XYZ.
+________________
+
+
+8. Test Clear Search:
+Description: Test that clicking "Clear" removes all filters and shows the original full contact list.
+* Test Data:
+   * Apply filter by First Name: Eesha
+   * Click "Clear"
+   * Expected Result: All contacts should be displayed again.
+* Sample Data:
+   * Eesha Sharma
+   * Rajeev Sharma
+* Expected Result: All contacts should be visible again after clearing the search.
+________________
+
+
+Conclusion:
+This test plan covers all major functionalities like searching, pagination, and contact selection. Test all the above cases to verify that the application works as intended.
