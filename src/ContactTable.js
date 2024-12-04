@@ -33,6 +33,7 @@ const ContactTable = ({ contacts, onSelect, totalItems, onPageChange, currentPag
                 {contact.firstName} {contact.lastName}
               </TableCell>
               <TableCell>{contact.dateOfBirth}</TableCell>
+
               <TableCell>{contact.address}</TableCell>
               <TableCell>{contact.city}</TableCell>
               <TableCell>{contact.state}</TableCell>

@@ -38,13 +38,18 @@ const SearchForm = ({ filters, setFilters }) => {
             onChange={handleInputChange}
             style={{ marginTop: "16px" }}
           />
-          <TextField
-            label="Date of Birth"
-            name="dateOfBirth"
-            fullWidth
-            onChange={handleInputChange}
-            style={{ marginTop: "16px" }}
-          />
+        <Box mb={2} pt={0.25}> {/* 0.25rem = 2px */}
+  <TextField
+    label="Date of Birth (YYYY-MM-DD)"
+    variant="outlined"
+    fullWidth
+    value={filters.dateOfBirth || ""}
+    onChange={(e) =>
+      setFilters({ ...filters, dateOfBirth: e.target.value })
+    }
+  />
+</Box>
+
         </Grid>
 
         {/* Right Column: New Filters */}

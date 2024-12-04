@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchForm from "./searchForm";
 import ContactTable from "./ContactTable";
 import data from "./data/contacts.json";
-import { Box, Typography, Paper, Button, IconButton } from "@mui/material";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { CalendarToday } from "@mui/icons-material";
+import { Box, Typography, Paper, Button } from "@mui/material";
 
 const App = () => {
   const [filters, setFilters] = useState({});
@@ -20,13 +17,6 @@ const App = () => {
     // When no search is applied and page loads, show all contacts initially
     setContacts(data);
   }, []);
-
-  const handleDateChange = (date) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      dateOfBirth: date,
-    }));
-  };
 
   const handleSearch = () => {
     let filtered = data;
@@ -61,7 +51,7 @@ const App = () => {
     if (filters.dateOfBirth) {
       const dobFilter = filters.dateOfBirth;
       filtered = filtered.filter((contact) =>
-        contact.dob.includes(dobFilter)
+        contact.dateOfBirth.includes(dobFilter)
       );
     }
 
@@ -118,22 +108,6 @@ const App = () => {
         Contact Search
       </Typography>
       <SearchForm filters={filters} setFilters={setFilters} />
-      
-      <Box mt={2}>
-        <Typography variant="h6">Date of Birth:</Typography>
-        <Box display="flex" alignItems="center">
-          <DatePicker
-            selected={filters.dateOfBirth || null}
-            onChange={handleDateChange}
-            dateFormat="yyyy-MM-dd"
-            placeholderText="Select date (yyyy-mm-dd)"
-            style={{ width: "80%", padding: "8px", marginRight: "8px" }}
-          />
-          <IconButton onClick={() => {}}>
-            <CalendarToday />
-          </IconButton>
-        </Box>
-      </Box>
 
       <Button
         variant="contained"
@@ -169,7 +143,7 @@ const App = () => {
                 <strong>Phone:</strong> {contact.phone}
               </Typography>
               <Typography>
-                <strong>Address:</strong> {contact.address}, {contact.city}, {contact.state} - {contact.zipCode}
+                <strong>Address:</strong> {contact.address}, {contact.city}, {contact.state} - {contact.zip}
               </Typography>
               <hr />
             </div>

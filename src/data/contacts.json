@@ -2,7 +2,7 @@
   {
     "firstName": "Rajeev",
     "lastName": "Sharma",
-    "dob": "1986-02-12",
+    "dateOfBirth": "1986-02-12",
     "address": "1001 Noble St Ste 1",
     "city": "Fairbanks",
     "state": "AK",
@@ -13,7 +13,7 @@
   {
     "firstName": "Eesha",
     "lastName": "vermA",
-    "dob": "1995-07-04",
+    "dateOfBirth": "1995-07-04",
     "address": "4821 Ridge Top Cir",
     "city": "Anchorage",
     "state": "AK",
@@ -24,7 +24,7 @@
   {
     "firstName": "Eesha",
     "lastName": "Sharma",
-    "dob": "1995-07-04",
+    "dateOfBirth": "1995-07-04",
     "address": "4821 Ridge Top Cir",
     "city": "Anchorage",
     "state": "AK",
@@ -35,7 +35,7 @@
   {
     "firstName": "John",
     "lastName": "Doe",
-    "dob": "1990-01-15",
+    "dateOfBirth": "1990-01-15",
     "address": "123 Main St",
     "city": "Los Angeles",
     "state": "CA",
@@ -46,7 +46,7 @@
   {
     "firstName": "Jane",
     "lastName": "Smith",
-    "dob": "1988-05-20",
+    "dateOfBirth": "1988-05-20",
     "address": "456 Elm St",
     "city": "Chicago",
     "state": "IL",
@@ -57,7 +57,7 @@
   {
     "firstName": "Alice",
     "lastName": "Johnson",
-    "dob": "1992-11-30",
+    "dateOfBirth": "1992-11-30",
     "address": "789 Oak St",
     "city": "Houston",
     "state": "TX",
